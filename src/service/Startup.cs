@@ -4,6 +4,8 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
+    using Project.HealthChecks;
+    using Project.Options;
     using Project.Services;
 
     public sealed class Startup
@@ -15,8 +17,8 @@
                 .UseEndpoints((endpointRouteBuilder) =>
                 {
                     endpointRouteBuilder.MapControllers();
-                    endpointRouteBuilder.MapHealthChecks("/health/keepalive");
-                    endpointRouteBuilder.MapHealthChecks("/health/readiness");
+                    endpointRouteBuilder.MapHealthChecks("/health/keepalive", KeepAliveHealthCheckOptions.Instance);
+                    endpointRouteBuilder.MapHealthChecks("/health/readiness", ReadinessHealthCheckOptions.Instance);
                 });
         }
 
@@ -26,7 +28,8 @@
             services
                 .AddHostedService<HelloWorldService>()
                 .AddRouting()
-                .Configure<ConsoleLifetimeOptions>((options) => options.SuppressStatusMessages = true);
+                .Configure<ConsoleLifetimeOptions>((options) => options.SuppressStatusMessages = true)
+                .ConfigureOptions<KestrelServerOptionsSetup>();
 
             // Health Check builder
             services
