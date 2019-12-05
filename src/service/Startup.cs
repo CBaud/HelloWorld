@@ -26,7 +26,9 @@
         {
             // Default builder
             services
+                .AddHostedService<DiagnosticListenerService>()
                 .AddHostedService<HelloWorldService>()
+                .AddHttpContextAccessor()
                 .AddRouting()
                 .Configure<ConsoleLifetimeOptions>((options) => options.SuppressStatusMessages = true)
                 .ConfigureOptions<KestrelServerOptionsSetup>();
