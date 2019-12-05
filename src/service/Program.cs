@@ -1,11 +1,13 @@
-﻿namespace HelloWorld
+﻿namespace Project
 {
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
+
+    using Project.Services;
 
     public static class Program
     {
@@ -13,8 +15,7 @@
         {
             var hostBuilder = CreateHostBuilder(args);
             using var host = hostBuilder.Build();
-            await host.StartAsync();
-            await host.StopAsync();
+            await host.RunAsync();
         }
 
         private static IHostBuilder CreateHostBuilder(string[] args) => new HostBuilder()
@@ -29,11 +30,11 @@
                 loggingBuilder.
                     AddConsole();
             })
-            .ConfigureServices((services) =>
+            .ConfigureWebHost((webHostBuilder) =>
             {
-                services
-                    .AddHostedService<HelloWorldService>()
-                    .Configure<ConsoleLifetimeOptions>((options) => options.SuppressStatusMessages = true);
+                webHostBuilder
+                    .UseKestrel()
+                    .UseStartup<Startup>();
             });
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace HelloWorld
+﻿namespace Project.Services
 {
     using System.Threading;
     using System.Threading.Tasks;
