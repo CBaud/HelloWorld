@@ -1,10 +1,12 @@
 ﻿namespace Project
 {
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
     using Project.HealthChecks;
+    using Project.Http;
     using Project.Options;
     using Project.Services;
 
@@ -30,6 +32,7 @@
                 .AddHostedService<HelloWorldService>()
                 .AddHttpContextAccessor()
                 .AddRouting()
+                .AddSingleton<IHttpContextFactory, CustomHttpContextFactory>()
                 .Configure<ConsoleLifetimeOptions>((options) => options.SuppressStatusMessages = true)
                 .ConfigureOptions<KestrelServerOptionsSetup>();
 
