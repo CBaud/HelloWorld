@@ -21,6 +21,7 @@
                     endpointRouteBuilder.MapControllers();
                     endpointRouteBuilder.MapHealthChecks("/health/keepalive", KeepAliveHealthCheckOptions.Instance);
                     endpointRouteBuilder.MapHealthChecks("/health/readiness", ReadinessHealthCheckOptions.Instance);
+                    endpointRouteBuilder.MapHealthChecks("/health/startup",   StartupHealthCheckOptions.Instance);
                 });
         }
 
