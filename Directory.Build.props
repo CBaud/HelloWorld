@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>Project</RootNamespace>
-    <TargetFramework>net50</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
 </Project>
